@@ -1,0 +1,50 @@
+<div class="bg-animacija"></div>
+
+<div class="container">
+  <header class="hero">
+    <h1 class="naslov">Expense Tracker</h1>
+    <p class="podnaslov-hero">Prati svoje troškove na jednom mestu</p>
+  </header>
+
+  <div class="vrh">
+    <div class="ukupno-glavni">
+      <span class="ukupno-label">UKUPNO SVE</span>
+      <span class="ukupno-broj">{{ ukupno }} din</span>
+    </div>
+    <a routerLink="/dodaj" class="dugme-dodaj-link">+ Dodaj trošak</a>
+  </div>
+
+  <div class="grid-meseci">
+    @for (grupa of grupe; track grupa.naziv) {
+      <div class="mesec-kartica">
+        <div class="mesec-zaglavlje">
+          <span class="mesec-naziv">{{ grupa.naziv }}</span>
+          <span class="mesec-ukupno">{{ grupa.ukupno }} din</span>
+        </div>
+
+        <div class="mesec-lista">
+          @for (t of grupa.troskovi; track t.id) {
+            <div class="trosak-red">
+              <div class="trosak-info">
+                <span class="trosak-naziv">{{ t.naziv }}</span>
+                <span class="tag">{{ t.kategorija }}</span>
+              </div>
+              <div class="trosak-desno">
+                <span class="trosak-iznos">{{ t.iznos }} din</span>
+                <span class="trosak-datum">{{ formatDatum(t.datum) }}</span>
+                <button class="olovcica" (click)="toggleOpcije(t.id)">✏️</button>
+              </div>
+
+              @if (otvorenId === t.id) {
+                <div class="opcije">
+                  <a [routerLink]="['/izmeni', t.id]" class="opcija-izmeni">Izmeni</a>
+                  <button class="opcija-obrisi" (click)="obrisi(t.id)">Obriši</button>
+                </div>
+              }
+            </div>
+          }
+        </div>
+      </div>
+    }
+  </div>
+</div>

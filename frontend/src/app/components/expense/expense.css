@@ -1,0 +1,202 @@
+/* === ANIMIRANA POZADINA === */
+.bg-animacija {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: linear-gradient(-45deg, #000000, #0d0418, #150726, #07010f);
+  background-size: 400% 400%;
+  animation: pomeranje 15s ease infinite;
+  z-index: -2;
+}
+.bg-animacija::before {
+  content: '';
+  position: absolute;
+  top: 15%; left: 12%;
+  width: 450px; height: 450px;
+  background: radial-gradient(circle, rgba(168, 85, 247, 0.18), transparent 70%);
+  border-radius: 50%;
+  filter: blur(50px);
+  animation: lebdenje 9s ease-in-out infinite;
+}
+.bg-animacija::after {
+  content: '';
+  position: fixed;
+  bottom: 10%; right: 10%;
+  width: 380px; height: 380px;
+  background: radial-gradient(circle, rgba(217, 70, 239, 0.15), transparent 70%);
+  border-radius: 50%;
+  filter: blur(60px);
+  animation: lebdenje 11s ease-in-out infinite reverse;
+  z-index: -2;
+}
+@keyframes pomeranje {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+@keyframes lebdenje {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(90px, 70px); }
+}
+
+/* === KONTEJNER === */
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+}
+
+/* === HERO === */
+.hero { text-align: center; margin-bottom: 30px; animation: ulazGore 0.8s ease; }
+.naslov {
+  font-size: 48px; font-weight: 800; margin: 0;
+  background: linear-gradient(135deg, #c084fc, #a855f7, #e879f9, #c084fc);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: sjaj 3s linear infinite;
+  letter-spacing: -1px;
+}
+.podnaslov-hero { color: #8b7aa0; font-size: 16px; margin-top: 8px; }
+@keyframes sjaj { to { background-position: 200% center; } }
+
+/* === VRH (ukupno + dugme) === */
+.vrh {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+.ukupno-glavni {
+  display: flex;
+  flex-direction: column;
+  background: rgba(255,255,255,0.03);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(168, 85, 247, 0.2);
+  border-radius: 14px;
+  padding: 16px 24px;
+}
+.ukupno-label { color: #a99bbd; font-size: 12px; letter-spacing: 1px; }
+.ukupno-broj {
+  font-size: 26px; font-weight: 800;
+  background: linear-gradient(135deg, #c084fc, #e879f9);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.dugme-dodaj-link {
+  background: linear-gradient(135deg, #a855f7, #d946ef);
+  color: #fff; text-decoration: none;
+  padding: 14px 22px; border-radius: 12px;
+  font-weight: 700; font-size: 15px;
+  transition: all 0.25s;
+}
+.dugme-dodaj-link:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(168, 85, 247, 0.6);
+}
+
+/* === GRID MESECI === */
+.grid-meseci {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.mesec-kartica {
+  flex: 1 1 300px;
+  background: rgba(255,255,255,0.03);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(168, 85, 247, 0.2);
+  border-radius: 18px;
+  padding: 20px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+  animation: ulazGore 0.6s ease;
+}
+.mesec-zaglavlje {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 14px;
+  margin-bottom: 14px;
+  border-bottom: 2px solid rgba(168, 85, 247, 0.3);
+}
+.mesec-naziv { color: #c084fc; font-weight: 700; font-size: 18px; }
+.mesec-ukupno { color: #fff; font-weight: 700; font-size: 16px; }
+
+.mesec-lista { display: flex; flex-direction: column; gap: 10px; }
+
+.trosak-red {
+  background: rgba(255,255,255,0.03);
+  border-radius: 12px;
+  padding: 12px 14px;
+  transition: background 0.2s;
+}
+.trosak-red:hover { background: rgba(168, 85, 247, 0.08); }
+
+.trosak-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+.trosak-naziv { color: #fff; font-weight: 600; }
+
+.trosak-desno {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.trosak-iznos { color: #e879f9; font-weight: 700; }
+.trosak-datum { color: #8b7aa0; font-size: 13px; margin-left: auto; }
+
+.olovcica {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 2px 6px;
+  border-radius: 6px;
+  transition: background 0.2s;
+}
+.olovcica:hover { background: rgba(168, 85, 247, 0.2); }
+
+/* === TAG === */
+.tag {
+  background: rgba(168, 85, 247, 0.18);
+  color: #c084fc;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+  border: 1px solid rgba(168, 85, 247, 0.35);
+}
+
+/* === OPCIJE (izmeni/obriši) === */
+.opcije {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+  animation: ulazGore 0.25s ease;
+}
+.opcija-izmeni {
+  background: linear-gradient(135deg, #a855f7, #d946ef);
+  color: #fff; text-decoration: none;
+  padding: 6px 16px; border-radius: 8px;
+  font-size: 13px; font-weight: 600;
+}
+.opcija-obrisi {
+  background: transparent;
+  color: #ff5470;
+  border: 1px solid rgba(255, 84, 112, 0.4);
+  padding: 6px 16px; border-radius: 8px;
+  cursor: pointer; font-size: 13px;
+}
+.opcija-obrisi:hover { background: #ff5470; color: #fff; }
+
+/* === ANIMACIJE === */
+@keyframes ulazGore {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}

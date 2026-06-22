@@ -1,0 +1,201 @@
+/* === ANIMIRANA POZADINA === */
+.bg-animacija {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(-45deg, #000000, #0d0418, #150726, #07010f);
+  background-size: 400% 400%;
+  animation: pomeranje 15s ease infinite;
+  z-index: -2;
+}
+
+.bg-animacija::before {
+  content: '';
+  position: absolute;
+  top: 15%;
+  left: 12%;
+  width: 450px;
+  height: 450px;
+  background: radial-gradient(circle, rgba(168, 85, 247, 0.18), transparent 70%);
+  border-radius: 50%;
+  filter: blur(50px);
+  animation: lebdenje 9s ease-in-out infinite;
+}
+
+.bg-animacija::after {
+  content: '';
+  position: fixed;
+  bottom: 10%;
+  right: 10%;
+  width: 380px;
+  height: 380px;
+  background: radial-gradient(circle, rgba(217, 70, 239, 0.15), transparent 70%);
+  border-radius: 50%;
+  filter: blur(60px);
+  animation: lebdenje 11s ease-in-out infinite reverse;
+  z-index: -2;
+}
+
+@keyframes pomeranje {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes lebdenje {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(90px, 70px); }
+}
+
+/* === KONTEJNER === */
+.container {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+}
+
+/* === HERO NASLOV === */
+.hero {
+  text-align: center;
+  margin-bottom: 40px;
+  animation: ulazGore 0.8s ease;
+}
+
+.naslov {
+  font-size: 48px;
+  font-weight: 800;
+  margin: 0;
+  background: linear-gradient(135deg, #c084fc, #a855f7, #e879f9, #c084fc);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: sjaj 3s linear infinite;
+  letter-spacing: -1px;
+}
+
+.podnaslov-hero {
+  color: #8b7aa0;
+  font-size: 16px;
+  margin-top: 8px;
+}
+
+@keyframes sjaj {
+  to { background-position: 200% center; }
+}
+
+/* === GLASSMORPHISM KARTICE === */
+.kartica {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(168, 85, 247, 0.2);
+  border-radius: 20px;
+  padding: 30px;
+  margin-bottom: 25px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+  animation: ulazGore 0.8s ease;
+}
+
+.podnaslov {
+  color: #c084fc;
+  margin: 0 0 22px 0;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+/* === FORMA === */
+.forma {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.polje {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.polje label {
+  font-weight: 600;
+  color: #a99bbd;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.polje input,
+.polje select {
+  padding: 12px 14px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  font-size: 15px;
+  color: #fff;
+  transition: all 0.25s;
+}
+
+.polje input::placeholder {
+  color: #6b5d7d;
+}
+
+.polje input:focus,
+.polje select:focus {
+  outline: none;
+  border-color: #a855f7;
+  box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.2);
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.polje select option {
+  background: #150726;
+  color: #fff;
+}
+
+/* === DUGME DODAJ/SAČUVAJ === */
+.dugme-dodaj {
+  background: linear-gradient(135deg, #a855f7, #d946ef);
+  color: #fff;
+  border: none;
+  padding: 14px;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.25s;
+  margin-top: 5px;
+}
+
+.dugme-dodaj:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(168, 85, 247, 0.6);
+}
+
+/* === DUGME NAZAD === */
+.dugme-nazad {
+  display: block;
+  text-align: center;
+  color: #c084fc;
+  text-decoration: none;
+  margin-top: 12px;
+  font-size: 14px;
+}
+
+.dugme-nazad:hover {
+  text-decoration: underline;
+}
+
+.greska {
+  color: #ff5470;
+  font-size: 14px;
+  margin: 0;
+  min-height: 18px;
+}
+
+/* === ANIMACIJE ULASKA === */
+@keyframes ulazGore {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}

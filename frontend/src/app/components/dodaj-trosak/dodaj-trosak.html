@@ -1,0 +1,45 @@
+<div class="bg-animacija"></div>
+
+<div class="container">
+<header class="hero">
+  <h1 class="naslov">{{ idZaIzmenu != null ? 'Izmeni trošak' : 'Dodaj trošak' }}</h1>
+</header>
+
+  <div class="kartica">
+    <form class="forma">
+      <div class="polje">
+        <label>Naziv</label>
+        <input type="text" [(ngModel)]="naziv" name="naziv" placeholder="npr. Kafa">
+      </div>
+      <div class="polje">
+        <label>Iznos</label>
+        <input type="number" [(ngModel)]="iznos" name="iznos" placeholder="npr. 250">
+      </div>
+      <div class="polje">
+        <label>Kategorija</label>
+        <select [(ngModel)]="kategorija" name="kategorija">
+          <option value="">-- Izaberi kategoriju --</option>
+          <option value="Hrana">Hrana</option>
+          <option value="Odeca">Odeća</option>
+          <option value="Putovanja">Putovanja</option>
+          <option value="Stvari za kucu">Stvari za kuću</option>
+          <option value="Dejtovi">Dejtovi</option>
+          <option value="Racuni">Računi</option>
+          <option value="Zabava">Zabava</option>
+          <option value="Pokloni">Pokloni</option>
+          <option value="Ostalo">Ostalo</option>
+        </select>
+      </div>
+      <div class="polje">
+        <label>Datum</label>
+        <input type="date" [(ngModel)]="datum" name="datum">
+      </div>
+
+      <button type="button" class="dugme-dodaj" (click)="dodaj()">
+  {{ idZaIzmenu != null ? 'Sačuvaj izmene' : '+ Sačuvaj' }}
+</button>
+      <a routerLink="/" class="dugme-nazad">← Nazad na listu</a>
+      <p class="greska">{{ greska }}</p>
+    </form>
+  </div>
+</div>

@@ -14,7 +14,11 @@
     <a routerLink="/dodaj" class="dugme-dodaj-link">+ Dodaj trošak</a>
   </div>
 
-  @if (grupe.length > 0) {
+  @if (ucitavanje) {
+    <div class="prazno-stanje"><p>Učitavanje... ⏳</p></div>
+  } @else if (greska != '') {
+    <div class="prazno-stanje"><p>{{ greska }}</p></div>
+  } @else if (grupe.length > 0) {
     <div class="grid-meseci">
       @for (grupa of grupe; track grupa.naziv) {
         <div class="mesec-kartica">

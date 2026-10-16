@@ -14,10 +14,6 @@
           "builder": "@angular/build:application",
           "options": {
             "browser": "src/main.ts",
-              "outputPath": {
-              "base": "dist/frontend",
-              "browser": ""
-            },
             "polyfills": [
               "zone.js"
             ],
@@ -30,7 +26,11 @@
             ],
             "styles": [
               "src/styles.css"
-            ]
+            ],
+            "outputPath": {
+              "base": "dist/frontend",
+              "browser": ""
+            }
           },
           "configurations": {
             "production": {

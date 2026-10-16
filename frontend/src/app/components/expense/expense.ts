@@ -3,9 +3,8 @@ import { RouterLink } from '@angular/router';
 import { ExpenseModel } from '../../models/expense';
 import { ExpenseService } from '../../services/expense';
 
-// pomoćni tip: jedna mesečna grupa
 interface MesecnaGrupa {
-  naziv: string;        // npr. "Jun 2026"
+  naziv: string;
   troskovi: ExpenseModel[];
   ukupno: number;
 }
@@ -19,7 +18,9 @@ interface MesecnaGrupa {
 export class Expense implements OnInit {
   grupe: MesecnaGrupa[] = [];
   ukupno: number = 0;
-  otvorenId: number | null = null;  // koji trošak ima otvorene opcije
+  otvorenId: number | null = null;
+  ucitavanje: boolean = true;
+  greska: string = '';
 
   private expenseService = inject(ExpenseService);
 
@@ -31,13 +32,25 @@ export class Expense implements OnInit {
   }
 
   ucitaj() {
-    let troskovi = this.expenseService.getAll();
-    this.ukupno = this.expenseService.getUkupno();
-    this.grupisiPoMesecima(troskovi);
+    this.ucitavanje = true;
+    this.greska = '';
+    this.expenseService.getAll().subscribe({
+      next: (troskovi) => {
+        this.ukupno = 0;
+        for (let t of troskovi) {
+          this.ukupno = this.ukupno + t.iznos;
+        }
+        this.grupisiPoMesecima(troskovi);
+        this.ucitavanje = false;
+      },
+      error: () => {
+        this.greska = 'Server trenutno nije dostupan. Pokušaj ponovo za minut.';
+        this.ucitavanje = false;
+      }
+    });
   }
 
   grupisiPoMesecima(troskovi: ExpenseModel[]) {
-    // sortiraj po datumu, najnoviji prvi
     troskovi.sort((a, b) => b.datum.localeCompare(a.datum));
 
     let rezultat: MesecnaGrupa[] = [];
@@ -46,11 +59,9 @@ export class Expense implements OnInit {
       let d = new Date(t.datum);
       let nazivMeseca = this.imenaMeseci[d.getMonth()] + ' ' + d.getFullYear();
 
-      // da li grupa za ovaj mesec već postoji?
       let grupa = rezultat.find(g => g.naziv === nazivMeseca);
 
       if (grupa == undefined) {
-        // ne postoji - napravi novu
         grupa = { naziv: nazivMeseca, troskovi: [], ukupno: 0 };
         rezultat.push(grupa);
       }
@@ -71,20 +82,20 @@ export class Expense implements OnInit {
     return iznos.toLocaleString('sr-RS');
   }
 
-  // klik na olovčicu - otvori/zatvori opcije za taj trošak
   toggleOpcije(id: number) {
     if (this.otvorenId === id) {
-      this.otvorenId = null;   // već otvoren -> zatvori
+      this.otvorenId = null;
     } else {
-      this.otvorenId = id;     // otvori ovaj
+      this.otvorenId = id;
     }
   }
 
   obrisi(id: number) {
     if (confirm('Da li želiš da obrišeš ovaj trošak?')) {
-      this.expenseService.delete(id);
-      this.otvorenId = null;
-      this.ucitaj();
+      this.expenseService.delete(id).subscribe(() => {
+        this.otvorenId = null;
+        this.ucitaj();
+      });
     }
   }
 }

@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
+import { provideHttpClient } from '@angular/common/http';
 
 import { Expense } from './expense';
 import { routes } from '../../app.routes';
@@ -11,7 +12,7 @@ describe('Expense', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [Expense],
-      providers: [provideRouter(routes)]
+      providers: [provideRouter(routes), provideHttpClient()]
     })
     .compileComponents();
 

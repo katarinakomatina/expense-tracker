@@ -17,24 +17,22 @@ export class DodajTrosak implements OnInit {
   datum: string = '';
   greska: string = '';
 
-  idZaIzmenu: number | null = null;  // ako menjamo postojeći
+  idZaIzmenu: number | null = null;
 
   private expenseService = inject(ExpenseService);
   private router = inject(Router);
   private route = inject(ActivatedRoute);
 
   ngOnInit() {
-    // proveri ima li id u ruti (znači izmena)
     let id = this.route.snapshot.paramMap.get('id');
     if (id != null) {
       this.idZaIzmenu = Number(id);
-      let trosak = this.expenseService.getById(this.idZaIzmenu);
-      if (trosak != undefined) {
+      this.expenseService.getById(this.idZaIzmenu).subscribe(trosak => {
         this.naziv = trosak.naziv;
         this.iznos = trosak.iznos;
         this.kategorija = trosak.kategorija;
         this.datum = trosak.datum;
-      }
+      });
     }
   }
 
@@ -52,16 +50,18 @@ export class DodajTrosak implements OnInit {
       trosak.kategorija = this.kategorija;
       trosak.datum = this.datum;
 
+      let zahtev;
       if (this.idZaIzmenu != null) {
-        // izmena postojećeg
         trosak.id = this.idZaIzmenu;
-        this.expenseService.update(trosak);
+        zahtev = this.expenseService.update(trosak);
       } else {
-        // novi trošak
-        this.expenseService.add(trosak);
+        zahtev = this.expenseService.add(trosak);
       }
 
-      this.router.navigate(['/']);
+      zahtev.subscribe({
+        next: () => this.router.navigate(['/']),
+        error: () => this.greska = 'Čuvanje nije uspelo. Proveri da li server radi.'
+      });
     }
   }
 }

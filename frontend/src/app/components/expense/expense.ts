@@ -2,6 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { ExpenseModel } from '../../models/expense';
 import { ExpenseService } from '../../services/expense';
+import { AuthService } from '../../services/auth';
 
 interface MesecnaGrupa {
   naziv: string;
@@ -23,6 +24,8 @@ export class Expense implements OnInit {
   greska: string = '';
 
   private expenseService = inject(ExpenseService);
+  private authService = inject(AuthService);
+  ime: string = this.authService.getIme();
 
   imenaMeseci = ['Januar', 'Februar', 'Mart', 'April', 'Maj', 'Jun',
                  'Jul', 'Avgust', 'Septembar', 'Oktobar', 'Novembar', 'Decembar'];
@@ -97,5 +100,9 @@ export class Expense implements OnInit {
         this.ucitaj();
       });
     }
+  }
+
+  odjavi() {
+    this.authService.odjava();
   }
 }

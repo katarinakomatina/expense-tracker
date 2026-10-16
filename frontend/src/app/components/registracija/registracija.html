@@ -1,0 +1,58 @@
+<div class="bg-animacija"></div>
+
+<div class="container">
+  <header class="hero">
+    <h1 class="naslov">Registracija</h1>
+    <p class="podnaslov-hero">Napravi nalog i prati troškove sa svih uređaja</p>
+  </header>
+
+  <div class="kartica">
+    <form class="forma" (ngSubmit)="registruj()">
+      <div class="polje">
+        <label>Ime</label>
+        <input type="text" [(ngModel)]="ime" name="ime" placeholder="npr. Ana" autocomplete="given-name">
+      </div>
+      <div class="polje">
+        <label>Email</label>
+        <input type="email" [(ngModel)]="email" name="email" placeholder="npr. ana@gmail.com" autocomplete="email">
+      </div>
+      <div class="polje">
+        <label>Lozinka</label>
+        <div class="lozinka-omot">
+          <input [type]="prikaziLozinku ? 'text' : 'password'" [(ngModel)]="lozinka" name="lozinka" placeholder="bar 6 karaktera" autocomplete="new-password">
+          <button type="button" class="oko" (click)="prikaziLozinku = !prikaziLozinku" [attr.aria-label]="prikaziLozinku ? 'Sakrij lozinku' : 'Prikaži lozinku'">
+            @if (prikaziLozinku) {
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 19c-7 0-11-7-11-7a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 7 11 7a18.5 18.5 0 0 1-2.16 3.19"/><path d="M14.12 14.12a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+            } @else {
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>
+            }
+          </button>
+        </div>
+      </div>
+      <div class="polje">
+        <label>Ponovi lozinku</label>
+        <div class="lozinka-omot">
+          <input [type]="prikaziPonovljenu ? 'text' : 'password'" [(ngModel)]="ponovljenaLozinka" name="ponovljenaLozinka" placeholder="ista lozinka" autocomplete="new-password">
+          <button type="button" class="oko" (click)="prikaziPonovljenu = !prikaziPonovljenu" [attr.aria-label]="prikaziPonovljenu ? 'Sakrij lozinku' : 'Prikaži lozinku'">
+            @if (prikaziPonovljenu) {
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 19c-7 0-11-7-11-7a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 7 11 7a18.5 18.5 0 0 1-2.16 3.19"/><path d="M14.12 14.12a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+            } @else {
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>
+            }
+          </button>
+        </div>
+      </div>
+
+      <button type="submit" class="dugme-dodaj" [disabled]="salje">
+        {{ salje ? 'Pravljenje naloga...' : 'Napravi nalog' }}
+      </button>
+      <p class="greska">{{ greska }}</p>
+    </form>
+
+    <div class="razdvajac"><span>ili</span></div>
+
+    <app-google-dugme (greska)="greska = $event"></app-google-dugme>
+
+    <p class="link-dole">Već imaš nalog? <a routerLink="/prijava">Prijavi se</a></p>
+  </div>
+</div>

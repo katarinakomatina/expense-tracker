@@ -1,6 +1,7 @@
 package com.example.expensetracker.service;
 
 import com.example.expensetracker.model.Trosak;
+import com.example.expensetracker.repository.KorisnikRepository;
 import com.example.expensetracker.repository.TrosakRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -12,29 +13,33 @@ import java.util.List;
 public class TrosakService {
 
     private final TrosakRepository trosakRepository;
+    private final KorisnikRepository korisnikRepository;
 
-    public TrosakService(TrosakRepository trosakRepository) {
+    public TrosakService(TrosakRepository trosakRepository, KorisnikRepository korisnikRepository) {
         this.trosakRepository = trosakRepository;
+        this.korisnikRepository = korisnikRepository;
     }
 
-    public List<Trosak> getAll() {
-        return trosakRepository.findAll();
+    public List<Trosak> getAll(Long korisnikId) {
+        return trosakRepository.findByKorisnikId(korisnikId);
     }
 
-    public Trosak getById(Long id) {
-        return trosakRepository.findById(id)
+    public Trosak getById(Long id, Long korisnikId) {
+        return trosakRepository.findByIdAndKorisnikId(id, korisnikId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Trošak ne postoji"));
     }
 
-    public Trosak dodaj(Trosak trosak) {
+    public Trosak dodaj(Trosak trosak, Long korisnikId) {
         proveri(trosak);
         trosak.setId(null);
+        trosak.setNaziv(trosak.getNaziv().trim());
+        trosak.setKorisnik(korisnikRepository.getReferenceById(korisnikId));
         return trosakRepository.save(trosak);
     }
 
-    public Trosak izmeni(Long id, Trosak izmenjeni) {
+    public Trosak izmeni(Long id, Trosak izmenjeni, Long korisnikId) {
         proveri(izmenjeni);
-        Trosak postojeci = getById(id);
+        Trosak postojeci = getById(id, korisnikId);
         postojeci.setNaziv(izmenjeni.getNaziv().trim());
         postojeci.setIznos(izmenjeni.getIznos());
         postojeci.setKategorija(izmenjeni.getKategorija());
@@ -42,11 +47,9 @@ public class TrosakService {
         return trosakRepository.save(postojeci);
     }
 
-    public void obrisi(Long id) {
-        if (!trosakRepository.existsById(id)) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Trošak ne postoji");
-        }
-        trosakRepository.deleteById(id);
+    public void obrisi(Long id, Long korisnikId) {
+        Trosak trosak = getById(id, korisnikId);
+        trosakRepository.delete(trosak);
     }
 
     private void proveri(Trosak t) {

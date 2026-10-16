@@ -67,6 +67,10 @@ export class Expense implements OnInit {
     return d.getDate() + '. ' + (d.getMonth() + 1) + '. ' + d.getFullYear() + '.';
   }
 
+  formatIznos(iznos: number): string {
+    return iznos.toLocaleString('sr-RS');
+  }
+
   // klik na olovčicu - otvori/zatvori opcije za taj trošak
   toggleOpcije(id: number) {
     if (this.otvorenId === id) {
@@ -77,8 +81,10 @@ export class Expense implements OnInit {
   }
 
   obrisi(id: number) {
-    this.expenseService.delete(id);
-    this.otvorenId = null;
-    this.ucitaj();
+    if (confirm('Da li želiš da obrišeš ovaj trošak?')) {
+      this.expenseService.delete(id);
+      this.otvorenId = null;
+      this.ucitaj();
+    }
   }
 }

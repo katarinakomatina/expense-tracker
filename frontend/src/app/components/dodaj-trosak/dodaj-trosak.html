@@ -13,18 +13,18 @@
       </div>
       <div class="polje">
         <label>Iznos</label>
-        <input type="number" [(ngModel)]="iznos" name="iznos" placeholder="npr. 250">
+        <input type="number" [(ngModel)]="iznos" name="iznos" placeholder="npr. 250" min="0.01" step="0.01">
       </div>
       <div class="polje">
         <label>Kategorija</label>
         <select [(ngModel)]="kategorija" name="kategorija">
           <option value="">-- Izaberi kategoriju --</option>
           <option value="Hrana">Hrana</option>
-          <option value="Odeca">Odeća</option>
+          <option value="Odeća">Odeća</option>
           <option value="Putovanja">Putovanja</option>
-          <option value="Stvari za kucu">Stvari za kuću</option>
+          <option value="Stvari za kuću">Stvari za kuću</option>
           <option value="Dejtovi">Dejtovi</option>
-          <option value="Racuni">Računi</option>
+          <option value="Računi">Računi</option>
           <option value="Zabava">Zabava</option>
           <option value="Pokloni">Pokloni</option>
           <option value="Ostalo">Ostalo</option>

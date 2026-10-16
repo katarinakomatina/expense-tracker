@@ -7,7 +7,6 @@ import { ExpenseModel } from '../models/expense';
 export class ExpenseService {
 
   private kljuc: string = 'troskovi';
-  private sledeciId: number = 1;
 
   getAll(): ExpenseModel[] {
     const podaci = localStorage.getItem(this.kljuc);
@@ -19,8 +18,8 @@ export class ExpenseService {
 
   add(trosak: ExpenseModel): void {
     const troskovi = this.getAll();
-    trosak.id = this.sledeciId;
-    this.sledeciId++;
+    const maxId = troskovi.reduce((max, t) => (t.id > max ? t.id : max), 0);
+    trosak.id = maxId + 1;
     troskovi.push(trosak);
     localStorage.setItem(this.kljuc, JSON.stringify(troskovi));
   }

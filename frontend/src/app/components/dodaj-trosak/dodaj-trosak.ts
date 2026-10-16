@@ -39,11 +39,15 @@ export class DodajTrosak implements OnInit {
   }
 
   dodaj() {
-    if (this.naziv == '' || this.iznos == null || this.kategorija == '' || this.datum == '') {
+    const nazivTrim = this.naziv.trim();
+
+    if (nazivTrim == '' || this.iznos == null || this.kategorija == '' || this.datum == '') {
       this.greska = 'Molimo vas da ukucate sve podatke u formi';
+    } else if (this.iznos <= 0) {
+      this.greska = 'Iznos mora biti veći od nule';
     } else {
       let trosak = new ExpenseModel();
-      trosak.naziv = this.naziv;
+      trosak.naziv = nazivTrim;
       trosak.iznos = this.iznos;
       trosak.kategorija = this.kategorija;
       trosak.datum = this.datum;

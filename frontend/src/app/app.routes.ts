@@ -5,5 +5,6 @@ import { DodajTrosak } from './components/dodaj-trosak/dodaj-trosak';
 export const routes: Routes = [
   { path: '', component: Expense },
   { path: 'dodaj', component: DodajTrosak },
-  { path: 'izmeni/:id', component: DodajTrosak }
+  { path: 'izmeni/:id', component: DodajTrosak },
+  { path: '**', redirectTo: '' }
 ];

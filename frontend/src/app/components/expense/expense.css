@@ -39,7 +39,6 @@
   50% { transform: translate(90px, 70px); }
 }
 
-/* === KONTEJNER === */
 .container {
   max-width: 1000px;
   margin: 0 auto;
@@ -47,7 +46,6 @@
   font-family: 'Segoe UI', system-ui, sans-serif;
 }
 
-/* === HERO === */
 .hero { text-align: center; margin-bottom: 30px; animation: ulazGore 0.8s ease; }
 .naslov {
   font-size: 48px; font-weight: 800; margin: 0;
@@ -61,7 +59,6 @@
 .podnaslov-hero { color: #8b7aa0; font-size: 16px; margin-top: 8px; }
 @keyframes sjaj { to { background-position: 200% center; } }
 
-/* === VRH (ukupno + dugme) === */
 .vrh {
   display: flex;
   justify-content: space-between;
@@ -98,7 +95,6 @@
   box-shadow: 0 8px 24px rgba(168, 85, 247, 0.6);
 }
 
-/* === GRID MESECI === */
 .grid-meseci {
   display: flex;
   flex-wrap: wrap;
@@ -162,7 +158,6 @@
 }
 .olovcica:hover { background: rgba(168, 85, 247, 0.2); }
 
-/* === TAG === */
 .tag {
   background: rgba(168, 85, 247, 0.18);
   color: #c084fc;
@@ -173,7 +168,6 @@
   border: 1px solid rgba(168, 85, 247, 0.35);
 }
 
-/* === OPCIJE (izmeni/obriši) === */
 .opcije {
   display: flex;
   gap: 10px;
@@ -195,7 +189,22 @@
 }
 .opcija-obrisi:hover { background: #ff5470; color: #fff; }
 
-/* === ANIMACIJE === */
+.prazno-stanje {
+  text-align: center;
+  background: rgba(255,255,255,0.03);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(168, 85, 247, 0.2);
+  border-radius: 18px;
+  padding: 60px 20px;
+  animation: ulazGore 0.6s ease;
+}
+.prazno-stanje p {
+  color: #a99bbd;
+  font-size: 16px;
+  margin: 0 0 20px 0;
+}
+
+
 @keyframes ulazGore {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
